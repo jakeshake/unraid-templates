@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<CommunityApplications>
+  <Profile>**Self-hosted apps by jakeshake.**
+
+**Pinebridge**: TradingView alerts to MetaTrader 5, on your own Unraid server. No signal-relay subscription and no VPS bill, and your broker login stays on your own server. Two containers: **pinebridge-mt5** (a Windows 11 VM that installs MT5 and the Pinebridge Expert Advisor) and **pinebridge-bridge** (receives TradingView webhooks and serves a LAN-only dashboard). Pinebridge places real trades automatically: read the [risk notice](https://github.com/jakeshake/pinebridge/blob/main/DISCLAIMER.md) and test on a demo account first. [Setup guide](https://github.com/jakeshake/pinebridge/blob/main/docs/unraid-install.md)
+
+**Wordly**: daily word games for your family or friends, with shared leaderboards. Includes Wordly (5 or 6-letter guessing), Spelly Bee, Boxy Letters and Connecty, plus a dozen themes. One small container with no database.</Profile>
+  <Icon>https://raw.githubusercontent.com/jakeshake/pinebridge/main/docs/icons/pinebridge.png</Icon>
+  <WebPage>https://github.com/jakeshake</WebPage>
+  <Forum>https://forums.unraid.net/topic/200736-support-jakeshake-pinebridge-tradingview-alerts-%E2%86%92-metatrader-5/</Forum>
+  <DonateLink>https://buymeacoffee.com/jakeshake</DonateLink>
+  <DonateText>If these apps save you time or money, consider buying me a coffee.</DonateText>
+  <Photo>https://raw.githubusercontent.com/jakeshake/pinebridge/main/docs/screenshots/dashboard.png</Photo>
+  <Photo>https://raw.githubusercontent.com/jakeshake/pinebridge/main/docs/screenshots/mt5.png</Photo>
+</CommunityApplications>

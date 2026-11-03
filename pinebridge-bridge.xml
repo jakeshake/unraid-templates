@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>pinebridge-bridge</Name>
+  <Repository>ghcr.io/jakeshake/pinebridge-bridge:latest</Repository>
+  <Registry>https://github.com/jakeshake/pinebridge/pkgs/container/pinebridge-bridge</Registry>
+  <Network>bridge</Network>
+  <MyIP/>
+  <Shell>sh</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://forums.unraid.net/topic/200736-support-jakeshake-pinebridge-tradingview-alerts-%E2%86%92-metatrader-5/</Support>
+  <Project>https://github.com/jakeshake/pinebridge</Project>
+  <Overview>Pinebridge: TradingView alerts to MetaTrader 5. Send TradingView alerts straight to MetaTrader 5 on your own Unraid server. No paid signal-relay service, no VPS. This container receives the TradingView webhook alerts and passes them over ZeroMQ to the Expert Advisor in pinebridge-mt5. Needs pinebridge-mt5 running alongside it; the webhook secret is generated for you. Places real trades automatically: read the risk notice (https://github.com/jakeshake/pinebridge/blob/main/DISCLAIMER.md) and test on a demo account first.</Overview>
+  <Description>Pinebridge: TradingView alerts to MetaTrader 5. Send TradingView alerts straight to MetaTrader 5 on your own Unraid server. No paid signal-relay service, no VPS. This container receives the TradingView webhook alerts and passes them over ZeroMQ to the Expert Advisor in pinebridge-mt5. Needs pinebridge-mt5 running alongside it; the webhook secret is generated for you. Places real trades automatically: read the risk notice (https://github.com/jakeshake/pinebridge/blob/main/DISCLAIMER.md) and test on a demo account first.</Description>
+  <ReadMe>https://raw.githubusercontent.com/jakeshake/pinebridge/main/README.md</ReadMe>
+  <License>MIT</License>
+  <ExtraSearchTerms>tradingview metatrader mt5 webhook trading alerts forex dashboard pinebridge</ExtraSearchTerms>
+  <Screenshot>https://raw.githubusercontent.com/jakeshake/pinebridge/main/docs/screenshots/dashboard.png</Screenshot>
+  <Category>Productivity: Network:Other</Category>
+  <WebUI>http://[IP]:[PORT:8081]/</WebUI>
+  <TemplateURL>https://raw.githubusercontent.com/jakeshake/unraid-templates/main/pinebridge-bridge.xml</TemplateURL>
+  <Icon>https://raw.githubusercontent.com/jakeshake/pinebridge/main/docs/icons/pinebridge-bridge.png</Icon>
+  <ExtraParams/>
+  <PostArgs/>
+  <CPUset/>
+  <DateInstalled/>
+  <DonateText>If Pinebridge saves you a VPS or signal subscription, consider buying me a coffee.</DonateText>
+  <DonateLink>https://buymeacoffee.com/jakeshake</DonateLink>
+  <Requires>Install pinebridge-mt5 too. The defaults work as-is on Unraid's default bridge network. Leave WEBHOOK_SECRET blank to have one generated; your TradingView webhook URL is printed in this container's log on first start.</Requires>
+  <Config Name="WebUI Port" Target="5000" Default="5080" Mode="tcp" Description="Host port for the webhook. Point your Cloudflare tunnel at http://[your Unraid IP]:[this port]." Type="Port" Display="always" Required="true" Mask="false">5080</Config>
+  <Config Name="Dashboard Port" Target="8081" Default="8081" Mode="tcp" Description="Pinebridge Dashboard (opens from WebUI). Shows account data: keep it on your LAN and never add it to your Cloudflare tunnel." Type="Port" Display="always" Required="false" Mask="false">8081</Config>
+  <Config Name="EA Report Port" Target="5556" Default="5556" Mode="tcp" Description="The EA sends execution reports here (its ReportAddress input, default tcp://172.17.0.1:5556). LAN only." Type="Port" Display="advanced" Required="false" Mask="false">5556</Config>
+  <Config Name="DASHBOARD_PASSWORD" Target="DASHBOARD_PASSWORD" Default="" Mode="" Description="Optional: password for the dashboard (any username). Recommended if others use your LAN." Type="Variable" Display="always" Required="false" Mask="true"></Config>
+  <Config Name="RETENTION_DAYS" Target="RETENTION_DAYS" Default="90" Mode="" Description="Days of equity-chart heartbeats to keep (0 = forever). Signals and trades are never deleted." Type="Variable" Display="advanced" Required="false" Mask="false">90</Config>
+  <Config Name="ZMQ_HOST" Target="ZMQ_HOST" Default="172.17.0.1" Mode="" Description="Where the EA's ZeroMQ port is reachable. 172.17.0.1 (the Docker host on the default bridge network) works when pinebridge-mt5 runs on this server; otherwise use that server's LAN IP." Type="Variable" Display="advanced" Required="false" Mask="false">172.17.0.1</Config>
+  <Config Name="ZMQ_PORT" Target="ZMQ_PORT" Default="5555" Mode="" Description="ZeroMQ PULL port the EA listens on" Type="Variable" Display="always" Required="true" Mask="false">5555</Config>
+  <Config Name="WEBHOOK_SECRET" Target="WEBHOOK_SECRET" Default="" Mode="" Description="Leave blank to generate one on first start (saved in the Config path as webhook_secret, and the full webhook URL is printed in the log). Or set your own long random string." Type="Variable" Display="always" Required="false" Mask="true"></Config>
+  <Config Name="PUBLIC_URL" Target="PUBLIC_URL" Default="" Mode="" Description="Optional: your tunnel's https address (e.g. https://tv-webhook.example.com), so the log prints the exact TradingView webhook URL." Type="Variable" Display="always" Required="false" Mask="false"></Config>
+  <Config Name="REQUIRE_WEBHOOK_SECRET" Target="REQUIRE_WEBHOOK_SECRET" Default="true" Mode="" Description="Leave true for anything reachable from the internet. Only set false for local-only testing." Type="Variable" Display="advanced" Required="false" Mask="false">true</Config>
+  <Config Name="Config" Target="/config" Default="/mnt/user/appdata/pinebridge-bridge/config" Mode="rw" Description="Keeps the generated webhook secret and the dashboard database (pinebridge.db) across restarts and updates" Type="Path" Display="advanced" Required="true" Mask="false">/mnt/user/appdata/pinebridge-bridge/config</Config>
+  <Config Name="Logs" Target="/logs" Default="/mnt/user/appdata/pinebridge-bridge/logs" Mode="rw" Description="Webhook log storage" Type="Path" Display="advanced" Required="false" Mask="false">/mnt/user/appdata/pinebridge-bridge/logs</Config>
+</Container>
